@@ -1,0 +1,9 @@
+build:
+  image: docker:20.10.16
+  stage: build
+  services:
+    - docker:20.10.16-dind
+  script:
+    - docker login -u $CI_ARTIFACTORY_USER -p $CI_ARTIFACTORY_PASSWORD $ARTIFACTORY_REGISTRY
+    - docker build -t $ARTIFACTORY_REGISTRY/image:latest .
+    - docker push $ARTIFACTORY_REGISTRYimage:latest
